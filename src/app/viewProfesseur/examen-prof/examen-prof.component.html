@@ -1,0 +1,232 @@
+
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+
+    <div class="container">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+Action des éxamens
+
+          </div>
+          <div class="card-body">
+            <div class="btn-group" dropdown>
+              <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+               Actions <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a (click)="goTocreate()" class="dropdown-item" >Créer un examen</a></li>
+                <li role="menuitem"><a (click)="goToVoir()" class="dropdown-item" >Voir les examens</a></li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div  [hidden]="falseCreate" class="col-md-12 mx-auto">
+
+          <div class="card mx-4">
+            <div class="card-header">
+              Créer un examen
+            </div>
+            <div class="card-body p-4">
+
+              <form [formGroup]="angForm"  (ngSubmit)="onSubmit()" class="form-horizontal">
+
+                <div class="form-group row">
+                  <label class="col-md-3 col-form-label" for="nom">Libellé Examen:</label>
+                  <div class="col-md-9">
+                    <input  formControlName="nom"
+                            [ngClass]="{'is-invalid': (angFormControl.nom.touched && ( angFormControl.nom.invalid)),'': !(angFormControl.nom.touched && (  angFormControl.nom.invalid))}"
+                            [(ngModel)]="examen.nom"
+                      type="text" id="nom" name="nom" class="form-control" placeholder="Libellé">
+                  </div>
+                </div>
+
+
+                <div class="form-group row">
+                  <label class="col-7 col-form-label" for="dateExamen">Date et Heure Examen:</label>
+                  <label class="col-5 col-form-label" for="dateExamen">Durée:</label>
+
+                  <div class="col-7">
+                    <input formControlName="date_examen"
+                      [ngClass]="{'is-invalid': (angFormControl.date_examen.touched && ( angFormControl.date_examen.invalid)),'': !(angFormControl.date_examen.touched && (  angFormControl.date_examen.invalid))}"
+                      [(ngModel)]="examen.date_examen"
+                      class="form-control" id="dateExamen" type="datetime-local" name="date_examen" placeholder="date">
+                  </div>
+                  <div class="col-5">
+                    <input formControlName="duree"
+                           [ngClass]="{'is-invalid': (angFormControl.duree.touched && ( angFormControl.duree.invalid)),'': !(angFormControl.duree.touched && (  angFormControl.duree.invalid))}"
+                           class="form-control" id="duree"  name="duree"
+
+                      type="time"
+                           min="00:05" max="12:00" >
+                  </div>
+
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-6 col-form-label" for="bareme">bareme:</label>
+                  <label class="col-6 col-form-label" for="seuil_reussite">seuil:</label>
+
+                  <div class="col-6">
+                    <input  formControlName="bareme"
+                            [ngClass]="{'is-invalid': (angFormControl.bareme.touched && ( angFormControl.bareme.invalid)),'': !(angFormControl.bareme.touched && (  angFormControl.bareme.invalid))}"
+                            [(ngModel)]="examen.bareme"
+                      class="form-control" id="bareme" type="number" name="bareme" placeholder="bareme">
+                  </div>
+                  <div class="col-6">
+                    <input  formControlName="seuil_reussite"
+                            [ngClass]="{'is-invalid': (angFormControl.seuil_reussite.touched && ( angFormControl.seuil_reussite.invalid)),'': !(angFormControl.seuil_reussite.touched && (  angFormControl.seuil_reussite.invalid))}"
+                            [(ngModel)]="examen.seuil_reussite"
+                      class="form-control" id="seuil_reussite" type="number" name="seuil_reussite" placeholder="seuil">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-3 col-form-label" >Classe associé</label>
+                  <div class="col-md-9" >
+                    <select
+                      [ngClass]="{'is-invalid': (angFormControl.classe_id.touched && ( angFormControl.classe_id.invalid)),'': !(angFormControl.classe_id.touched && (  angFormControl.classe_id.invalid))}"
+
+                      formControlName="classe_id"  name="classe_id" class="form-control">
+                      <option selected  [ngValue]="null">Sélectionner la classe...</option>
+                      <option *ngFor="let classe of classes" value="{{classe.id}}">{{classe.nom}}</option>
+
+                    </select>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <button type="submit" [disabled]="!angForm.valid" class="btn btn-success px-4">Créer</button>
+                  <button type="reset" class="btn btn-danger px-4"><i class="fa fa-ban"></i> Reset</button>
+                </div>
+              </form>
+              <div *ngFor="let alert of alerts">
+                <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+              </div>
+            </div>
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+      <div [hidden]="falseVoir" class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Mes Examens
+        </div>
+        <div class="card-body">
+          <form [formGroup]="findExamsByClasseForm" (change)="findExamsByClasse()" class="form-horizontal">
+
+            <div class="col-md-9" >
+              <select
+                formControlName="classe_id"  name="classe_id" class="form-control">
+                <option selected  [ngValue]="null">Sélectionner la classe...</option>
+                <option *ngFor="let classe of classes" value="{{classe.id}}">{{classe.nom}}</option>
+
+              </select>
+            </div>
+          </form>
+          <table class="table table-sm">
+            <thead>
+            <tr>
+              <th>Libelle </th>
+              <th>Date de création</th>
+              <th>Ouvrir</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let examen of examens">
+              <td>{{examen.nom}}</td>
+              <td>{{examen.date_examen}}</td>
+              <td>
+
+                <button (click)="showSelectedExam(examen)"class="btn btn-dark btn-sm"><i class="fa fa-search-plus"></i>
+                </button>
+
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div [hidden]="selectedExamPartFalse" class="col-sm-12 col-md-12">
+        <div class="card">
+          <div class="card-body">
+
+            <div class="h1 text-muted text-right mb-4">
+              Examen
+              <i class="icon-speech"></i>
+            </div>
+            <div class="h4 mb-0">{{selectedExamen.nom}}</div>
+            <div class="progress progress-xs mt-3 mb-0">
+              <div class="progress-bar bg-dark" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="brand-card-body">
+            <div>
+              <div class="text-value">{{selectedExamen.duree}}</div>
+              <div class="text-uppercase text-muted small">Durée</div>
+            </div>
+            <div>
+              <div class="text-value">{{selectedExamen.date_examen}}</div>
+              <div class="text-uppercase text-muted small">Date Examen</div>
+            </div>
+          </div>
+          <div class="brand-card-body">
+            <div>
+              <div class="text-value">{{selectedExamen.bareme}}</div>
+              <div class="text-uppercase text-muted small">Baréme</div>
+            </div>
+            <div>
+              <div class="text-value">{{selectedExamen.seuil_reussite}}</div>
+              <div class="text-uppercase text-muted small">Seuil réussite</div>
+            </div>
+          </div>
+          <div class="brand-card-body">
+            <div>
+              <div class="btn-group" dropdown>
+              <button dropdownToggle type="button" class="btn btn-block btn-outline-dark dropdown-toggle">
+                Créer une question <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a (click)="showQcm()" class="dropdown-item" >QCM</a></li>
+                <li role="menuitem"><a (click)="showQstOuverte()" class="dropdown-item" >Question ouverte</a></li>
+                <li role="menuitem"><a (click)="showQstFichier()" class="dropdown-item" >importation fichier </a></li>
+
+              </ul>
+            </div>
+            </div>
+            <div>
+              <button  class="btn btn-outline-dark " (click)="showListQst()" type="button">afficher les questions </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+<div [hidden]="qstOuvertFalse  || selectedExamPartFalse">
+      <app-question-ouv   [api_token]="api_token" [selectedExamen]="selectedExamen" > </app-question-ouv>
+</div>
+      <div [hidden]="listerQstFalse  || selectedExamPartFalse">
+        <app-lister-question  [questions]="questions" [api_token]="api_token" [selectedExamen]="selectedExamen" > </app-lister-question>
+      </div>
+
+      <div [hidden]="qstQcmFalse || selectedExamPartFalse">
+        <app-question-qcm   [api_token]="api_token" [selectedExamen]="selectedExamen" > </app-question-qcm>
+      </div>
+      <div [hidden]="qstFileFalse || selectedExamPartFalse">
+        <app-question-file [api_token]="api_token" [selectedExamen]="selectedExamen"   > </app-question-file>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<

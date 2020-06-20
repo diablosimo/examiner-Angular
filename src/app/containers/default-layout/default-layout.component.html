@@ -1,0 +1,63 @@
+<app-header
+  [navbarBrandRouterLink]="['/']"
+  [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/img/logo.PNG', width: 89, height: 25, alt: 'Examiner Logo'}"
+  [navbarBrandMinimized]="{src: 'assets/img/logo.PNG', width: 30, height: 30, alt: 'Examiner Logo'}"
+  [sidebarToggler]="'lg'"
+  [asideMenuToggler]="'lg'">
+  <ul class="nav navbar-nav ml-auto">
+    <li [className]="shownotif ? 'nav-item dropdown d-md-down-none open show' : 'nav-item dropdown d-md-down-none'" dropdown="" placement="bottom right">
+      <a aria-haspopup="true" class="nav-link" data-toggle="dropdown" dropdowntoggle=""  role="button"  (click)="this.shownotif=!this.shownotif">
+        <i class="icon-bell"></i><span class="badge badge-pill badge-danger" *ngIf="count != 0">{{count}}</span>
+      </a>
+      <div aria-labelledby="simple-dropdown" [className]="this.shownotif ? 'dropdown-menu  dropdown-menu-right dropdown-menu-lg show' : 'dropdown-menu dropdown-menu-right dropdown-menu-lg'"   style="inset: 100% 0px auto auto; transform: translateY(0px);">
+        <div class="dropdown-header text-center">
+          <strong>Vous avez {{notifications.length}} notifications</strong>
+        </div>
+        <ng-container  *ngFor="let notification of notifications" style=" padding: 0;margin: 0; ">
+          <a class="dropdown-item "  (click)="updateNotification(notification)">
+            <div class="message">
+              <div class="py-3 mr-3 px-12 float-left">
+                <div class="avatar">
+                  <img alt="" class="img-avatar" src="assets/img/avatars/examen.jpg" *ngIf="notification.type_notification == 'examen'">
+                  <img alt="" class="img-avatar" src="assets/img/avatars/classroom.jpg" *ngIf="notification.type_notification == 'classe'">
+                  <img alt="" class="img-avatar" src="assets/img/avatars/reclamation.png" *ngIf="notification.type_notification == 'reclamation'">
+                </div>
+              </div>
+              <div><small class="text-muted">{{notification.createur}}</small><small class="text-muted float-right mt-1"> {{notification.created_at |  date:'MM/dd h:m'}}</small></div>
+              <div class="text-truncate font-weight-bold"><span class="fa fa-exclamation text-danger" *ngIf="notification.type_notification == 'examen'"></span> {{notification.type_notification}}</div>
+              <div class="small text-muted text-truncate">{{notification.texte}}</div>
+            </div>
+          </a>
+        </ng-container>
+      </div>
+    </li>
+
+  </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
+    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+  </app-sidebar>
+  <!-- Main content -->
+  <main class="main">
+    <!-- Breadcrumb -->
+    <!-- breaking change 'cui-breadcrumb' -->
+    <cui-breadcrumb>
+      <!-- Breadcrumb Menu-->
+
+    </cui-breadcrumb>
+    <div class="container-fluid">
+
+    <router-outlet></router-outlet>
+    </div>
+
+  </main>
+</div>
+<app-footer>
+  <div class="text-center text-muted">
+    <p>&copy; IRISI Méthode Agile Scrum 2020
+    </p>
+  </div>
+</app-footer>

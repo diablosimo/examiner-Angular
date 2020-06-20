@@ -1,0 +1,56 @@
+
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+</div>
+
+
+
+<div class="animated fadeIn ng-scope">
+  <div class="row">
+
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Remplir une réclamation </strong>
+          <small></small>
+        </div>
+        <div class="card-body">
+          <form  id="ReclamationForm" [formGroup]="ReclamationForm" (ngSubmit)="createReclamation()">
+            <div class="form-group was-validated">
+              <label >Sujet</label>
+              <input type="text"
+                     class="form-control"
+                     placeholder="Sujet"
+                     formControlName="sujetReclamation"
+                     [(ngModel)]="sujet"
+                     required>
+            </div>
+            <div class="form-group was-validated">
+              <label >Détail de la réclamation</label>
+              <textarea
+                class="form-control"
+                name="textarea-input"
+                rows="9"
+                placeholder="Détail de la réclamation"
+                formControlName="detailReclamation"
+                [(ngModel)]="contenu"
+                required></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer"  >
+          <button form="ReclamationForm"
+                  type="submit"
+                  [disabled]="!ReclamationForm.valid"
+                  class="btn btn-success px-6" >
+            <i class="fa fa-send"></i>
+            Envoyer
+          </button>
+          <button class="btn btn-danger px-6" type="reset"  form="ReclamationForm">
+            <i class="fa fa-eraser"></i>
+            Efacer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

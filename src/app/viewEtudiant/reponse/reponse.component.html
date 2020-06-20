@@ -1,0 +1,19 @@
+<div class="animated fadeIn">
+
+  <div class="row" *ngFor="let qr of questionReponses;">
+    <div class="card border-primary col-12">
+      <div class="card-header">
+        <strong>Question nº{{qr.numero}} : {{qr.question}} </strong>
+      </div>
+      <div class="card-body">
+
+        <div class="form-group row">
+
+          <pre style="font: 16px Arial, sans-serif">{{qr.reponse}}</pre>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

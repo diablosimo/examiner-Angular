@@ -1,0 +1,67 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<table class="table table-sm">
+  <thead>
+  <tr>
+    <th>Numéro</th>
+    <th>Question </th>
+    <th>Type Question</th>
+    <th>note</th>
+    <th></th>
+    <th></th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr >
+    <td>{{question.numero}}</td>
+    <td>{{question.contenu}}</td>
+    <td>{{question.type_question}}</td>
+    <td>{{question.note}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div  *ngIf="lesChoix.length && question.type_question=='qcm'" class="modal-body">
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th>les choix: </th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <ul >
+    <li *ngFor="let item of lesChoix">{{item.numero}}  {{item.choice}}  </li>
+  </ul>
+</div>
+<div class="modal-body">
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th>solution</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+      <td *ngIf=" question.type_question=='ouverte'">{{solution.texte}}</td>
+    </tr>
+    <tr  *ngFor="let item of choixCorrecteList">
+      <td *ngIf=" question.type_question=='qcm'"> {{lesChoix[item-1].numero}} {{lesChoix[item-1].choice}}</td>
+    </tr>
+    <tr>
+      <td *ngIf="question.type_question=='fichier'">url : <a href="{{solution.url}}">fichier</a></td>
+
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+</div>

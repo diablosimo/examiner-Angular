@@ -1,0 +1,134 @@
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+</div>
+
+
+<div class="animated fadeIn ng-scope">
+  <div class="row">
+
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header">
+          <strong>Modifier Informations </strong>
+          <small></small>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <form [formGroup]="ModifForm" (ngSubmit)="edit()" id="ModifForm">
+                  <div class="form-group was-validated">
+                    <label >Nom</label>
+                    <input [(ngModel)]="professeur.nom"
+                           type="text"
+                           class="form-control"
+                           formControlName="nomProfesseur"
+                           name="nomProfesseur"
+                           required>
+                  </div>
+                  <div class="form-group was-validated">
+                    <label >Prenom</label>
+                    <input  [(ngModel)]="professeur.prenom"
+                            type="text"
+                            class="form-control"
+                            formControlName="prenomProfesseur"
+                            name="prenomProfesseur"
+                            required>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit"
+                  form="ModifForm"
+                  [disabled]="!ModifForm.valid" class="btn btn-success px-6 ">
+            <i class="fa fa-edit"></i> Modifier
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header">
+          <strong>Modifier le mot de passe </strong>
+          <small></small>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <form [formGroup]="PasswordForm" (ngSubmit)="editPassword()" id="PasswordForm">
+
+                  <div class="form-group was-validated">
+                    <label >Ancien mot de passe</label>
+                    <input type="password"
+                           class="form-control"
+                           name="oldPassword"
+                           [(ngModel)]="voldPassword"
+                           formControlName="oldPassword"
+                           required>
+                  </div>
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.oldPassword">
+                      <div class="error-message" *ngIf="PasswordForm.get('oldPassword').hasError(error.type) && (PasswordForm.get('oldPassword').dirty || PasswordForm.get('oldPassword').touched)">
+                        <alert class="alert-danger" >{{ error.message }}</alert>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div class="form-group was-validated">
+                    <label >Mot de passe</label>
+                    <input type="password"
+                           class="form-control"
+                           name="newPassword"
+                           [(ngModel)]="vnewPassword"
+                           formControlName="newPassword"
+                           required>
+                  </div>
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.newPassword">
+                      <div class="error-message" *ngIf="PasswordForm.get('newPassword').hasError(error.type) && (PasswordForm.get('newPassword').dirty || PasswordForm.get('newPassword').touched)">
+                        <alert class="alert-danger" >{{ error.message }}</alert>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div class="form-group was-validated">
+                    <label >Confirmation</label>
+                    <input  type="password"
+                            class="form-control"
+                            formControlName="confirmpassword"
+                            name="confirmpassword"
+                            required>
+
+                  </div>
+                  <div class="error-messages">
+                    <ng-container *ngFor="let error of error_messages.confirmpassword">
+                      <div class="error-message" *ngIf="PasswordForm.get('confirmpassword').hasError(error.type) && (PasswordForm.get('confirmpassword').dirty || PasswordForm.get('confirmpassword').touched)">
+                        <alert class="alert-danger" >{{ error.message }}</alert>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div *ngIf=" (PasswordForm.errors | json) != 'null' && (PasswordForm.get('confirmpassword').touched)">
+                    <alert class="alert-warning" >les mots de passe saisis ne sont pas identiques</alert>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit"  form="PasswordForm" [disabled]="!PasswordForm.valid" class="btn btn-success px-6 ">
+            <i class="fa fa-edit"></i>
+            Modifier
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

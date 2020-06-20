@@ -1,0 +1,93 @@
+<div class=" card col-md-12 align-items-center">
+  <div class="card-header">
+    Créer une question QCM
+  </div>
+  <div class="card-body col-md-8 ">
+
+    <form [formGroup]="questQcmForm"  (ngSubmit)="onSubmit()" class="form-horizontal">
+
+      <div class="form-group row">
+        <label class="col-9 col-form-label" for="note">Question:</label>
+        <label class="col-3 col-form-label" for="numero">nombre réponse:</label>
+      </div>
+      <div class="form-group row">
+      <div class="col-8">
+          <input  formControlName="contenu"
+                  [(ngModel)]="question.contenu"
+                  [ngClass]="{'is-invalid': (questQcmFormControl.contenu.touched && ( questQcmFormControl.contenu.invalid)),'': !(questQcmFormControl.contenu.touched && (  questQcmFormControl.contenu.invalid))}"
+                  type="text" id="contenu" name="contenu" class="form-control" placeholder="contenu">
+      </div>
+          <div class="col-4">
+            <select  (change)='onSelect($event)'      [(ngModel)]="nbChoix"         formControlName="nbChoix"
+                    class="form-control" id="ccmonth">
+
+              <option [value]="2">2</option>
+              <option [value]="3">3</option>
+              <option [value]="4">4</option>
+
+            </select>
+
+
+          </div>
+        </div>
+
+
+
+
+      <div class="form-group row">
+            <label class="col-4 col-form-label" for="note">note:</label>
+         <label class="col-4 col-form-label" for="numero">numéro:</label>
+         <label class="col-4 col-form-label" >Réponse Correcte:</label>
+
+         <div class="col-4">
+           <input  formControlName="note"
+                      [(ngModel)]="question.note"
+
+                      [ngClass]="{'is-invalid': (questQcmFormControl.note.touched && ( questQcmFormControl.note.invalid)),'': !(questQcmFormControl.note.touched && (  questQcmFormControl.note.invalid))}"
+                      class="form-control" id="note" type="number" name="note" placeholder="note">
+
+           </div>
+           <div class="col-4">
+             <input  formControlName="numero"
+                     [(ngModel)]="question.numero"
+                     [ngClass]="{'is-invalid': (questQcmFormControl.numero.touched && ( questQcmFormControl.numero.invalid)),'': !(questQcmFormControl.numero.touched && (  questQcmFormControl.numero.invalid))}"
+                     class="form-control" id="numero" type="number"  placeholder="numero"/>
+           </div>
+           <div class="col-4">
+             <select multiple  [(ngModel)]="question.reponse"       formControlName="reponseCorrecte"
+                             class="form-control" >
+
+               <option *ngFor="let number of numbers" [ngValue]="number">{{number}}</option>
+
+
+             </select>
+
+
+
+
+           </div>
+         </div>
+         <div class="form-group row">
+           <div class="col-8">
+             <input *ngFor='let number of numbers'  formControlName="reponse{{number}}"
+                    [(ngModel)]="reponseArray[number-1]"
+                     class="form-control"  type="text"  placeholder="Réponse{{number}}">
+           </div>
+
+
+         </div>
+
+
+         <div class="card-footer">
+           <button type="submit" [disabled]="!questQcmForm.valid" class="btn btn-success px-4">Créer</button>
+           <button type="reset" class="btn btn-danger px-4"><i class="fa fa-ban"></i> Reset</button>
+         </div>
+       </form>
+       <div *ngFor="let alert of alerts">
+         <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+       </div>
+     </div>
+
+
+
+   </div>

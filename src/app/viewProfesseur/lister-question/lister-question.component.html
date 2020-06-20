@@ -1,0 +1,38 @@
+<div  class="card">
+  <div class="card-header">
+    <i class="fa fa-align-justify"></i> Mes Questions d'examen
+  </div>
+  <div class="card-body">
+
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th>Numéro</th>
+        <th>Question </th>
+        <th>Type Question</th>
+        <th>note</th>
+        <th></th>
+        <th></th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let question of questions">
+        <td>{{question.numero}}</td>
+        <td>{{question.contenu}}</td>
+        <td>{{question.type_question}}</td>
+        <td>{{question.note}}</td>
+
+        <td>
+          <button (click)="ShowSelectedQuestion(question)"class="btn btn-dark btn-sm"><i class="fa fa-search-plus"></i>
+          </button>
+        </td>
+        <td>
+          <button (click)="deleteSelectedQuestion(question)"class="btn btn-dark btn-sm"><i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

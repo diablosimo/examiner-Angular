@@ -1,0 +1,73 @@
+<div class=" card col-md-12 align-items-center">
+  <div class="card-header">
+    Créer une question ouverte
+  </div>
+  <div class="card-body col-md-8 ">
+
+    <form [formGroup]="questOuverteForm"  (ngSubmit)="onSubmit()" class="form-horizontal">
+
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="contenu">Question Examen:</label>
+        <div class="col-md-9">
+          <input  formControlName="contenu"
+                  [(ngModel)]="question.contenu"
+                  [ngClass]="{'is-invalid': (questOuverteFormFormControl.contenu.touched && ( questOuverteFormFormControl.contenu.invalid)),'': !(questOuverteFormFormControl.contenu.touched && (  questOuverteFormFormControl.contenu.invalid))}"
+                  type="text" id="contenu" name="contenu" class="form-control" placeholder="contenu">
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="note">note:</label>
+        <label class="col-4 col-form-label" for="numero">numéro:</label>
+        <label class="col-4 col-form-label" >Réponse accordé:</label>
+
+        <div class="col-4">
+          <input  formControlName="note"
+                  [(ngModel)]="question.note"
+
+                  [ngClass]="{'is-invalid': (questOuverteFormFormControl.note.touched && ( questOuverteFormFormControl.note.invalid)),'': !(questOuverteFormFormControl.note.touched && (  questOuverteFormFormControl.note.invalid))}"
+                  class="form-control" id="note" type="number" name="note" placeholder="note">
+        </div>
+        <div class="col-4">
+          <input  formControlName="numero"
+                  [(ngModel)]="question.numero"
+
+                  [ngClass]="{'is-invalid': (questOuverteFormFormControl.numero.touched && ( questOuverteFormFormControl.numero.invalid)),'': !(questOuverteFormFormControl.numero.touched && (  questOuverteFormFormControl.numero.invalid))}"
+                  class="form-control" id="numero" type="number" name="numero" placeholder="numero">
+        </div>
+        <div class="col-4">
+
+        <label class="switch switch-label switch-dark">
+          <input type="checkbox" class="switch-input"
+                 (change)='onSelect($event)' >
+          <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+        </label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-12">
+          <input  formControlName="reponse"
+                  [hidden]="hideResponse"
+                  [(ngModel)]="question.reponse"
+
+                  [ngClass]="{'is-invalid': (questOuverteFormFormControl.reponse.touched && ( questOuverteFormFormControl.reponse.invalid)),'': !(questOuverteFormFormControl.reponse.touched && (  questOuverteFormFormControl.reponse.invalid))}"
+                  type="text" id="reponse" name="reponse" class="form-control" placeholder="reponse">
+        </div>
+
+      </div>
+
+
+      <div class="card-footer">
+        <button type="submit" [disabled]="!questOuverteForm.valid" class="btn btn-success px-4">Créer</button>
+        <button type="reset" class="btn btn-danger px-4"><i class="fa fa-ban"></i> Reset</button>
+      </div>
+    </form>
+    <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+    </div>
+  </div>
+
+
+
+</div>

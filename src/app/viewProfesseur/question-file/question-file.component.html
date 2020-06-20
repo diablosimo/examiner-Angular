@@ -1,0 +1,61 @@
+<div class=" card col-md-12 align-items-center">
+  <div class="card-header">
+    Créer une question fichier
+  </div>
+  <div class="card-body col-md-8 ">
+
+    <form [formGroup]="questFileForm"  (ngSubmit)="onSubmit()" class="form-horizontal">
+
+      <div class="form-group row">
+        <label class="col-9 col-form-label" for="contenu">Question:</label>
+        <label class="col-3 col-form-label" for="note">note:</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-8">
+          <input  formControlName="contenu"
+                  [(ngModel)]="question.contenu"
+                  [ngClass]="{'is-invalid': (questFileFormControl.contenu.touched && ( questFileFormControl.contenu.invalid)),'': !(questFileFormControl.contenu.touched && (  questFileFormControl.contenu.invalid))}"
+                  type="text" id="contenu" name="contenu" class="form-control" placeholder="contenu">
+        </div>
+        <div class="col-4">
+          <input  formControlName="note"
+                  [(ngModel)]="question.note"
+
+                  [ngClass]="{'is-invalid': (questFileFormControl.note.touched && ( questFileFormControl.note.invalid)),'': !(questFileFormControl.note.touched && (  questFileFormControl.note.invalid))}"
+                  class="form-control" id="note" type="number" name="note" placeholder="note">
+
+        </div>
+
+      </div>
+
+
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="numero">numéro:</label>
+
+
+        <div class="col-4">
+          <input  formControlName="numero"
+                  [(ngModel)]="question.numero"
+                  [ngClass]="{'is-invalid': (questFileFormControl.numero.touched && ( questFileFormControl.numero.invalid)),'': !(questFileFormControl.numero.touched && (  questFileFormControl.numero.invalid))}"
+                  class="form-control" id="numero" type="number"  placeholder="numero"/>
+        </div>
+
+      </div>
+
+
+
+      <div class="card-footer">
+        <button type="submit" [disabled]="!questFileForm.valid" class="btn btn-success px-4">Créer</button>
+        <button type="reset" class="btn btn-danger px-4"><i class="fa fa-ban"></i> Reset</button>
+      </div>
+    </form>
+    <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+    </div>
+  </div>
+
+
+
+</div>

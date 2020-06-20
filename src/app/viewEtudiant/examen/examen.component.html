@@ -1,0 +1,77 @@
+<div class="animated fadeIn">
+  <div class="card col-12" >
+
+<div class="row">
+  <div class="col-12">
+    <div  class="h1 col-xs-1" align="center"  aria-pressed="true"><countdown [config]="{leftTime: remainTime}"></countdown></div>
+  </div>
+
+</div>
+
+</div>
+<div class="row" *ngIf="examen">
+  <div class="col-12">
+      <div class="row" *ngFor="let question of examen.questions;let i = index;">
+        <div class="card border-primary col-12" *ngIf="question.type_question=='qcm'">
+          <div class="card-header">
+            <strong>Question nº{{question.numero}} ({{question.note}} pts) : {{question.contenu}}</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label">Réponse: </label>
+              <div class="col-md-10">
+                <input value="{{question.id}}" [(ngModel)]="reponses[i].question_id" disabled hidden>
+                <div class="form-check" *ngFor="let choice of question.choices; let j =index;">
+                  <input class="form-check-input" type="checkbox"  [(ngModel)]="reponses[i].choices[j]" value="{{choice.id}}">
+                  <label class="form-check-label">
+                    {{choice.choice}}
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card border-primary col-12" *ngIf="question.type_question=='ouverte'">
+          <div class="card-header">
+            <strong>Question nº{{question.numero}} ({{question.note}} pts) : {{question.contenu}} {{i}}</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label">Réponse: </label>
+              <div class="col-md-10">
+                <input value="{{question.id}}" [(ngModel)]="reponses[i].question_id" disabled hidden>
+                <textarea rows="9" class="form-control" [(ngModel)]="reponses[i].texte"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card border-primary col-12" *ngIf="question.type_question=='fichier'">
+          <div class="card-header">
+            <strong>Question nº{{question.numero}} ({{question.note}} pts) : {{question.contenu}} {{i}}</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label">Réponse: </label>
+              <div class="col-md-10">
+                <input value="{{question.id}}" [(ngModel)]="reponses[i].question_id" disabled hidden>
+                <input type="file"  (change)="onFileChange($event.target.files,i)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <button type="button" class="btn btn-block btn-outline-success active" (click)="onSubmit()" aria-pressed="true">Envoyer</button>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+

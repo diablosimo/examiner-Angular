@@ -1,0 +1,251 @@
+<app-header
+  [navbarBrandRouterLink]="['/firstVisit']"
+  [navbarBrandFull]="{src: 'assets/img/logo.PNG', width: 89, height: 25, alt: 'Examiner Logo'}"
+  sidebarToggler
+  [sidebarToggler]="false"
+  [asideMenuToggler]="false"
+  [mobileSidebarToggler]="false"
+  [mobileAsideMenuToggler]="false"
+
+
+>
+  <ul class="nav navbar-nav d-md-down-none">
+    <li class="nav-item px-3">
+      <a  style="color:#f33837;" class="nav-link" [routerLink]="['/login']" href="#">Connexion</a>
+    </li>
+    <li class="nav-item px-3">
+      <a  style="color:#f33837;" class="nav-link" [routerLink]="['/register']" href="#">Inscription</a>
+    </li>
+  </ul>
+</app-header>
+<div style="background-color: white">
+<div class="app-body align-items-lg-center">
+  <main class="main d-flex align-items-lg-center">
+      <div class="row">
+        <div class="col-md-12 mx-auto align-items-lg-center">
+
+                  <main class="main align-items-lg-center">
+
+                    <div class="col-sm-12 mx-auto ">
+                      <carousel [interval]="myInterval" [noWrap]="noWrapSlides" [(activeSlide)]="activeSlideIndex">
+                        <slide *ngFor="let slide of slides; let index=index">
+                          <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">
+
+                          <div class="carousel-caption">
+
+                          </div>
+                        </slide>
+                      </carousel>
+
+                    </div>
+
+
+                  </main>
+
+
+
+        </div>
+      </div>
+  </main>
+</div>
+<div class="section" id="about">
+  <div class="container">
+    <div style="color:#f33837;" class="h1 text-center mb-12 title">Pourquoi Examiner ?</div>
+
+    <div class="card" data-aos="fade-up" data-aos-offset="10">
+      <div class="row">
+
+          <div class="card-body">
+            <h5>A nos jours, la volonté mondiale vers la numérisation a connu un saut qualitatif, tous les processus et les faits humaines sont demandée à être exécutée d’une manière numérique simplifié .
+              En ce qui concerne l’éducationnelle, le taux de l’éducation numérique
+              augmente  grâce à la disponibilité des équipements technologiques .
+              Or la procédure éducative ne contient pas que le processus de collecte d’information mais aussi l’examen
+             </h5>
+
+
+
+
+          </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section" id="Fonc">
+  <div class="container cc-education">
+    <div style="color:#f33837;" class="h1 text-center mb-12 title ">Fonctionnalités</div>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-1 bg-dark" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+          <div class="card-body cc-education-header">
+
+            <div class="h2">          <i class="fa fa-user-plus bg-dark p-2 font-2xl mr-2 float-left"></i>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+          <div class="card-body">
+            <h4 class="category">-Connexion et inscription des utilisateurs (Professeurs/Etudiant).
+            </h4>
+            <h4 class="category">-Gestion des classes contenant des Etudiants.
+            </h4>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-1  bg-dark" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+          <div class="card-body cc-education-header">
+
+            <div class="h2">          <i class="fa fa-pencil  bg-dark p-2 font-2xl mr-2 float-left"></i>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+          <div class="card-body">
+            <h4 class="category">  -Création des examens en ligne.
+            </h4>
+            <h4 class="category">  -Invitation des étudiants aux examens.
+            </h4>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-1  bg-dark" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+          <div class="card-body cc-education-header">
+
+            <div class="h2">          <i class="fa fa-calendar bg-dark p-2 font-2xl mr-2 float-left"></i>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+          <div class="card-body">
+            <h4 class="category">  -Choix de type d’examen.
+            </h4>
+            <h4 class="category">  -Passage de l’examen à compte à rebours.
+            </h4>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div class="col-md-1 bg-dark" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+          <div class="card-body cc-education-header">
+
+            <div class="h2">          <i class="fa fa-check bg-dark p-2 font-2xl mr-2 float-left"></i>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+          <div class="card-body">
+            <h4 class="category">  -Correction automatique pour les examens de type QCM.
+            </h4>
+            <h4 class="category"> -Possibilité d’importation des réponses type fichiers .
+            </h4>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+  <div class="container cc-education">
+    <div style="color:#f33837;" class="h1 text-center mb-12 title ">Type d'examen</div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <div class="card text-white bg-dark">
+          <div class="card-body">
+            <div class="h1 text-muted text-right mb-4">
+              <i class="icon-book-open"></i>
+            </div>
+            <div class="h4 mb-0">Ouvert</div>
+            <div class="progress progress-white progress-xs mt-3">
+              <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+      </div><!--/.col-->
+    <div class="col-sm-6 col-md-4">
+      <div class="card text-white bg-dark">
+        <div class="card-body">
+          <div class="h1 text-muted text-right mb-4">
+            <i class="icon-check"></i>
+          </div>
+          <div class="h4 mb-0">QCM</div>
+          <div class="progress progress-white progress-xs mt-3">
+            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  <div class="col-sm-6 col-md-4">
+    <div class="card text-white bg-dark">
+      <div class="card-body">
+        <div class="h1 text-muted text-right mb-4">
+          <i class="icon-pencil"></i>
+        </div>
+        <div class="h4 mb-0">Hyride</div>
+        <div class="progress progress-white progress-xs mt-3">
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6">
+        <div class="card text-white bg-dark">
+          <div class="card-body">
+            <a style="color:#ffffff;" class="nav-link" [routerLink]="['/login']" href="#">Connexion</a>
+
+          </div>
+        </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-md-6">
+        <div class="card text-white bg-dark">
+          <div class="card-body">
+            <a  style="color:#ffffff;" class="nav-link" [routerLink]="['/register']" href="#">Inscription</a>
+
+          </div>
+        </div>
+      </div><!--/.col-->
+
+    </div>
+
+  </div>
+
+
+
+</div>
+
+<footer class="footer">
+
+  <div class="text-center text-muted">
+    <p>&copy; IRISI Méthode Agile Scrum 2020
+    </p>
+  </div>
+</footer>
+
+
+
+
+

@@ -1,0 +1,124 @@
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Ajouter une classe</strong>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12">
+
+            <form [formGroup]="addClassForm" (ngSubmit)="persistClasse()">
+              <div class="form-group was-validated">
+                <label >Nom de la classe</label>
+                <input [(ngModel)]="newClasse.nom" type="text" class="form-control" formControlName="nomClasse"  name="nomClasse"
+                       placeholder="entrez un nouveau nom de classe" required>
+              </div>
+              <button type="submit" [disabled]="!addClassForm.valid" class="btn btn-success btn-block"><i class="fa fa-plus-circle"></i>
+                Ajouter
+              </button>
+            </form>
+          </div>
+        </div><!--/.row-->
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> Mes classes
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input [(ngModel)]="searchText" (keyup)="searchClasses()" id="filter_classe" placeholder="Filtrer par nom ..."
+                 class="form-control" size="16" type="text">
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fa fa-filter"></i></span>
+          </div>
+        </div>
+        <table class="table table-sm">
+          <thead>
+          <tr>
+            <th>Nom de la classe</th>
+            <th>Date de création</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let classe of resultFilter">
+            <td>{{classe.nom}}</td>
+            <td>{{classe.created_at}}</td>
+            <td>
+
+              <button (click)="showEtudiants(classe)" class="btn btn-dark btn-sm"><i class="fa fa-search-plus"></i>
+              </button>
+              <button (click)="deleteClasse(classe.id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
+              </button>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!--/.col-->
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Affecter un étudiant a une classe</strong>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input  formControlName="email" name="email"
+                              [ngClass]="{'is-invalid': (angFormControl.email.touched && ( angFormControl.email.invalid)),'': !(angFormControl.email.touched && (  angFormControl.email.invalid))}"
+                              [(ngModel)]="email" type="email"
+                              class="form-control" placeholder="Email de l'etudiant" autocomplete="email" required>
+                      <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div><!--/.row-->
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <select    [(ngModel)]="idClasse" formControlName="idClasse"  name="idClasse" class="form-control form-control">
+                      <option  [ngValue]="null">Sélectionner la classe...</option>
+                      <option *ngFor="let classe of classes" value="{{classe.id}}">{{classe.nom}}</option>
+
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" [disabled]="!angForm.valid" class="btn btn-success btn-block"><i
+                class="fa fa-book"></i> Affecter
+              </button>
+            </form>
+          </div>
+        </div><!--/.row-->
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> Liste des etudiants
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li *ngFor="let etudiant of listEtudiant" class="list-group-item">{{etudiant.nom}} {{etudiant.prenom}}</li>
+
+        </ul>
+      </div>
+    </div>
+  </div><!--/.col-->
+</div><!--/.row-->

@@ -1,0 +1,149 @@
+
+
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+</div>
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form  id="ModifReclamationForm" [formGroup]="ModifReclamationForm" (ngSubmit)="updateReclamation()">
+          <div class="form-group">
+            <label >Sujet</label>
+            <input type="text" class="form-control" [value]="reclamation.sujet" disabled>
+          </div>
+          <div class="form-group">
+            <label >Détail de la réclamation</label>
+            <textarea class="form-control" rows="4" [value]="reclamation.contenu" disabled></textarea>
+          </div>
+          <div class="form-group was-validated">
+            <label >Réponse de la réclamation</label>
+            <textarea
+                      class="form-control"
+                      rows="4"
+                      formControlName="reponse"
+                      required
+                      [(ngModel)]="reclamation.reponse"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()"><i class="fa fa-close"> </i> Close</button>
+        <button type="submit"
+                form="ModifReclamationForm"
+                [disabled]="!ModifReclamationForm.valid" class="btn btn-success px-6 ">
+                <i class="fa fa-edit"> </i> Modifier
+        </button>
+        <!--
+        <button form="ModifReclamationForm" class="btn btn-danger px-6" type="reset"><i class="fa fa-eraser"> </i> Efacer</button>
+        -->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="animated fadeIn ng-scope">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Liste des réclamations</strong>
+          <small></small>
+          <br/>
+        </div>
+        <div class="card-body">
+
+          <div class="form-check">
+            <input [(ngModel)]="checked" type="checkbox" class="form-check-input" (change)='checkedChange()'>
+            <label class="form-check-label" >Afficher les réclamations non traitées</label>
+          </div>
+          <br/>
+          <table class="table table-responsive-sm table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Sujet</th>
+                <th class="text-center">Contenu</th>
+                <th class="text-center">E-mail</th>
+                <ng-container *ngIf="!checked">
+                  <th class="text-center">Reponse</th>
+                  <th>Admin</th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let reclamation of reclamations">
+                <tr (click)="largeModal.show(); clicked(reclamation)">
+                  <td>
+                    {{reclamation.sujet}}
+                  </td>
+                  <td>
+                    {{reclamation.contenu}}
+                  </td>
+                  <td>
+                    {{reclamation.email}}
+                  </td>
+                  <ng-container *ngIf="!checked">
+                    <td>
+                      {{reclamation.reponse}}
+                    </td>
+                    <td>
+                      {{reclamation.nom}}
+                      {{reclamation.admin_id}}
+                    </td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+           </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Liste des professeurs</strong>
+          <small></small>
+          <br/>
+        </div>
+        <div class="card-body">
+
+          <table class="table table-responsive-sm table-bordered table-striped">
+            <thead>
+            <tr>
+              <th class="text-center">nom</th>
+              <th class="text-center">prenom</th>
+              <th class="text-center">E-mail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let professeur of professeurs">
+              <tr (click)="largeModal.show(); clicked(professeur)">
+                <td>
+                  {{professeur.nom}}
+                </td>
+                <td>
+                  {{professeur.prenom}}
+                </td>
+                <td>
+                  {{professeur.email}}
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

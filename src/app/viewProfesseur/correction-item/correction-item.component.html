@@ -1,0 +1,94 @@
+
+<div class="col-sm-12 col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <h4> L'étudiant : {{etudiant.nom}}  {{etudiant.prenom}}</h4>
+    </div>
+    <div   *ngIf="etudiantReponses.length==0"class="card-body">
+     <h4> Cet étudiant n'a pas repondu à aucune question de cet examen</h4>
+    </div>
+  </div>
+</div>
+<div *ngIf="etudiantReponses.length>0">
+<div  *ngFor="let item of listDetail">
+<div class="col-sm-12 col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <h5> Question  : {{item.question.numero}}</h5>
+
+      <div class="card-header-actions" style="height: 21px;">
+        <span *ngIf=" item.question.type_question=='qcm' && item.solution.choix==item.reponseEtudiant.choix"
+          class="badge badge-success">Correcte par la correction automatique </span>
+        <span *ngIf=" item.question.type_question=='qcm' && item.solution.choix!=item.reponseEtudiant.choix"
+          class="badge badge-pill badge-danger">fausse par la correction automatique</span>
+
+      </div>
+      <table class="table table-sm">
+        <thead>
+        <tr><th>Question </th><th>note Maximal</th></tr>
+        </thead>
+        <tbody>
+        <tr ><td>{{item.question.contenu}}</td><td>{{item.question.note}}</td></tr>
+        </tbody>
+        <thead><tr><th>Type Question</th><th>solution standard</th></tr></thead>
+        <tbody>
+        <tr *ngIf="item.question.type_question=='ouverte'" >
+          <td>{{item.question.type_question}}</td>
+          <td>{{item.solution.texte}}</td>
+        </tr>
+        <tr *ngIf="item.question.type_question=='qcm'" >
+          <td>{{item.question.type_question}}</td>
+          <td>{{item.solution.choix}}</td>
+        </tr>
+
+        <tr *ngIf="item.question.type_question=='fichier'">
+          <td>{{item.question.type_question}}</td>
+          <td >url : <a href="{{item.solution.url}}">fichier</a></td>
+        </tr>
+        </tbody>
+
+      </table>
+
+
+            <table  *ngIf="item.lesChoix.length && item.question.type_question=='qcm'"class="table table-sm">
+                <thead><tr><th>choix des Qst </th> <th>réponse étudiant </th></tr></thead><tbody></tbody>
+                <td>
+                <div *ngFor="let cc of item.lesChoix">{{cc.numero}}  {{cc.choice}}  </div>
+                </td>
+                <td>{{item.reponseEtudiant.choix}}</td>
+
+            </table>
+            <table  *ngIf="item.question.type_question=='ouverte'"class="table table-sm">
+              <table class="table table-sm">
+                <thead><tr> <th>réponse étudiant </th> <th>note attribuée </th></tr></thead><tbody></tbody>
+                <td>{{item.reponseEtudiant.texte}}</td>
+                <td><input
+                            [(ngModel)]="item.reponseEtudiant.note"
+                            class="form-control" id="note" type="number"  placeholder="note"></td>
+              </table>
+              <table  *ngIf="item.question.type_question=='fichier'"class="table table-sm">
+                <table class="table table-sm">
+                  <thead><tr> <th>réponse étudiant </th>  <th>note attribuée </th></tr></thead><tbody></tbody>
+                  <td >url : <a href="{{item.reponseEtudiant.url}}">fichier</a></td>
+                  <td><input
+                              [(ngModel)]="item.reponseEtudiant.note"
+                              class="form-control" type="number"  placeholder="note"></td>
+                </table>
+
+
+          </table>
+
+            </table>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div *ngFor="let alert of alerts">
+  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" >{{ alert.msg }}</alert>
+</div>
+  <div *ngIf="etudiantReponses.length!=0" class="col-12 col-sm-12 col-md-12 col-xl mb-3 mb-xl-0">
+    <button (click)="validerCorrection()" class="btn btn-block btn-dark active" type="button">valider les correction</button>
+  </div>
+
