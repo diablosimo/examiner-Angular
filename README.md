@@ -1,27 +1,55 @@
 # ExaminerAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
+<img src="https://i.ibb.co/WKkFZNg/logo.png" alt="logo" border="0"/>
 
-## Development server
+Ce projet est 
+* Encadré par: Mr RAKRAK SAID
+* Réalisé par:
+    * ZARBAG MED ELMEHDI
+    * BENMANSOUR MOHAMMED
+    * MOUTIK HAJAR
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Description
 
-## Code scaffolding
+Cette parti d'Angular, represente la partie front-end de notre application "Examiner" des examens en ligne.Elle englobe:
+* Les interfaces HTML des utilisateurs
+* Les services communiquants avec le serveur PHP
+* Les Modeles de comminication qui representent les données envoyées ou/et reçues du serveur.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+##Contenu
+###General
+   * Page d'acceuil de l'application
+   * Connexion et Inscription
+   * Mot de passe oublié
+   * Modification des informations personnelles (nom, prenom, mot de passe)
+   * Ajout de reclamation
+   * Deconnexion
+   
+###Vue du Professeur
+   * Dashboard et statistiques
+   * Classes (Création, Affectation des etudiants , recherche des classes et liste des etudiants par classe)
+   * Examens (Création, recherche, ajout des questions (QCM/OUVERTE), Liste des questions d'un examen)
+   * Corrections (Liste des examens, information sur un examen, Les etudiants autorisés à passer l'examen, Correction de la copie d'un etudiant et les notes affectées à ces etudiants)
+   
+###Vue de l'étudiant
+   * Dashboard et statistiques
+   * Réception des notifications (affectation à une classe, plannification d'un examen, réponse suite a une réclamation)
+   * Affichage des futurs examens regroupés par classe
+   * Répondre aux questions des examens
+   * Consulter les réponses
+   * Consulter les notes
+   
+###Dashboard Administrateur
+   * Lister les réclamation (traitée et non traitée)
 
-## Build
+## SERVEUR DE DEVOLOPEMENT
+Executer `ng serve` ,naviguer à  `http://localhost:4200/`.l'application va démarrer automatiquement.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   
+    
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
